@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Shade Gen — Tailwind 50–950 Color Scale Generator (OKLCH) | S3eidat Tools</title>
+<meta name="description" content="Turn one base colour into a Tailwind-style 50 to 950 scale with perceptual OKLCH spacing. Hue shift, saturation, live UI preview, contrast, and exports for Tailwind v3 and v4, CSS variables, SCSS and JSON.">
+<meta property="og:title" content="Shade Gen — Tailwind-style colour scales">
+<meta property="og:description" content="One colour in, an 11-step 50–950 OKLCH scale out. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="shade-gen">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Shade Gen</h1>
+    <p>One base colour in, a Tailwind-style 50–950 scale out. Steps are spaced in OKLCH, so they look evenly spaced to the eye.</p>
+  </section>
+
+  <section class="card">
+    <div class="sg-controls">
+      <label class="field">Base colour
+        <span class="row sg-color"><input type="color" id="pick" value="#0e9f9a" aria-label="Base colour picker"><input class="input mono" id="hex" value="#0e9f9a" spellcheck="false" aria-label="Base colour hex"></span>
+      </label>
+      <label class="field">Name
+        <input class="input mono" id="name" value="brand" spellcheck="false" maxlength="30">
+      </label>
+      <label class="field">Base sits at
+        <select class="select" id="anchor"><option value="auto">Auto (closest)</option></select>
+      </label>
+      <label class="field"><span>Hue shift <span class="faint" id="hsLbl">0°</span></span><input type="range" id="hshift" min="-30" max="30" value="0"></label>
+      <label class="field"><span>Saturation <span class="faint" id="satLbl">100%</span></span><input type="range" id="sat" min="40" max="160" step="5" value="100"></label>
+      <div class="row sg-randoms">
+        <button class="btn small" id="random"><svg class="i"><use href="#i-refresh"/></svg>Random</button>
+      </div>
+    </div>
+    <div class="sg-scale mt" id="scale" role="list" aria-label="Colour scale"></div>
+    <p class="faint mt">Click a swatch to copy its hex. Contrast shown against white and black (WCAG 2).</p>
+  </section>
+
+  <div class="grid-2 mt sg-lower">
+    <section class="card stack">
+      <h2>Preview</h2>
+      <div class="sg-ui" id="ui">
+        <div class="row">
+          <button class="sg-btn" data-k="solid" type="button">Primary</button>
+          <button class="sg-btn outline" data-k="outline" type="button">Secondary</button>
+          <span class="sg-badge" data-k="badge">New</span>
+        </div>
+        <div class="sg-alert" data-k="alert"><b>Heads up.</b> This alert uses 50 for the background, 200 for the border and 900 for the text.</div>
+        <div class="sg-dark" data-k="dark"><b>Dark surface</b><span>950 background, 100 text, 400 accents.</span><span class="sg-link">A link on dark →</span></div>
+      </div>
+    </section>
+    <section class="card stack">
+      <div class="row between">
+        <div class="seg" id="fmt" role="group" aria-label="Export format">
+          <button aria-pressed="true" data-v="tw3">Tailwind v3</button>
+          <button aria-pressed="false" data-v="tw4">Tailwind v4</button>
+          <button aria-pressed="false" data-v="css">CSS</button>
+          <button aria-pressed="false" data-v="scss">SCSS</button>
+          <button aria-pressed="false" data-v="json">JSON</button>
+        </div>
+      </div>
+      <div class="row between">
+        <div class="seg" id="val" role="group" aria-label="Value format">
+          <button aria-pressed="true" data-v="hex">HEX</button>
+          <button aria-pressed="false" data-v="oklch">OKLCH</button>
+        </div>
+        <div class="row">
+          <button class="btn small" id="copy"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+          <button class="btn small" id="dl"><svg class="i"><use href="#i-download"/></svg>File</button>
+        </div>
+      </div>
+      <pre class="out" id="out"></pre>
+    </section>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
